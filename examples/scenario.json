@@ -1,0 +1,37 @@
+{
+  "keys": [
+    { "id": "key-hot-1", "heat": 100, "ttlSeconds": 30, "sizeBytes": 2000000 },
+    { "id": "key-hot-2", "heat": 80, "ttlSeconds": 30, "sizeBytes": 1000000 },
+    { "id": "key-warm-1", "heat": 20, "ttlSeconds": 120, "sizeBytes": 500000 },
+    { "id": "key-warm-2", "heat": 10, "ttlSeconds": 120, "sizeBytes": 8000000 }
+  ],
+  "regions": [
+    { "id": "region-a", "capacityBytes": 10000000, "bandwidthMbps": 16 },
+    { "id": "region-b", "capacityBytes": 3000000, "bandwidthMbps": 16 }
+  ],
+  "origin": {
+    "rpsLimit": 2,
+    "bandwidthMbps": 100,
+    "maxBypassRps": 5
+  },
+  "config": {
+    "maxRetries": 3,
+    "maxConcurrencyPerKey": 1,
+    "deadlineSeconds": 120,
+    "hitRateTarget": 0.9
+  },
+  "simulation": {
+    "failures": [{ "taskId": "region-a__key-hot-1", "times": 2 }],
+    "events": [
+      { "type": "region-down", "atSecond": 1, "regionId": "region-b" },
+      { "type": "region-up", "atSecond": 18, "regionId": "region-b" },
+      {
+        "type": "heat-update",
+        "atSecond": 10,
+        "changes": [
+          { "id": "key-sudden", "heat": 95, "sizeBytes": 400000, "ttlSeconds": 20 }
+        ]
+      }
+    ]
+  }
+}

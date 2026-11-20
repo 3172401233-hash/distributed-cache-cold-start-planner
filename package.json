@@ -1,0 +1,19 @@
+{
+  "name": "multi-region-cold-start-planner",
+  "version": "1.0.0",
+  "description": "多区域缓存集群冷启动预热规划器（离线规划，不连接真实缓存）",
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "bin": {
+    "cold-start-plan": "./src/cli.js"
+  },
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "license": "MIT"
+}
